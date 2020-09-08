@@ -3,7 +3,7 @@ name: Docker tag
 on:
   push:
     tags:
-      - 'v*'
+      - '*.*.*'
 
 jobs:
   build-tag:

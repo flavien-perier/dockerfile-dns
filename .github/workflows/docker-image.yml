@@ -19,9 +19,7 @@ jobs:
     - name: Login to DockerHub Registry
       run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: Build the tagged Docker image
-      run: docker buildx build --tag flavienperier/dns:$GITHUB_SHA --platform linux/amd64,linux/arm/v7,linux/arm64/v8 .
-    - name: Push the tagged Docker image
-      run: docker push flavienperier/dns:$GITHUB_SHA
+      run: docker buildx build --push --tag flavienperier/dns:$GITHUB_SHA --platform linux/amd64,linux/arm/v7,linux/arm64/v8 .
 
   build-latest:
     runs-on: ubuntu-latest
@@ -35,6 +33,4 @@ jobs:
     - name: Login to DockerHub Registry
       run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: Build the latest Docker image
-      run: docker buildx build --tag flavienperier/dns:latest --platform linux/amd64,linux/arm/v7,linux/arm64/v8 .
-    - name: Push the latest Docker image
-      run: docker push flavienperier/dns:latest
+      run: docker buildx build --push --tag flavienperier/dns:latest --platform linux/amd64,linux/arm/v7,linux/arm64/v8 .

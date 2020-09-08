@@ -11,10 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: install buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
     - name: Login to DockerHub Registry
       run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: Build the tagged Docker image
-      run: docker build . --file Dockerfile --tag flavienperier/dns:$GITHUB_SHA
+      run: docker buildx build --tag flavienperier/dns:$GITHUB_SHA --platform linux/amd64,linux/arm/v7,linux/arm64/v8 .
     - name: Push the tagged Docker image
       run: docker push flavienperier/dns:$GITHUB_SHA
 
@@ -22,9 +27,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: install buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
     - name: Login to DockerHub Registry
       run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: Build the latest Docker image
-      run: docker build . --file Dockerfile --tag flavienperier/dns:latest
+      run: docker buildx build --tag flavienperier/dns:latest --platform linux/amd64,linux/arm/v7,linux/arm64/v8 .
     - name: Push the latest Docker image
       run: docker push flavienperier/dns:latest

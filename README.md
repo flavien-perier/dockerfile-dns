@@ -18,7 +18,7 @@ Dockerfile for [Bind](https://www.isc.org/bind/) DNS.
 
 ```yaml
 dns:
-  image: flavienperier/proxy
+  image: flavienperier/dns
   container_name: dns
   restart: always
   volumes:

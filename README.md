@@ -1,3 +1,7 @@
+![license](https://badgen.net/github/license/flavien-perier/dockerfile-dns)
+[![docker pulls](https://badgen.net/docker/pulls/flavienperier/dns)](https://hub.docker.com/r/flavienperier/dns)
+[![ci status](https://badgen.net/github/checks/flavien-perier/dockerfile-dns)](https://github.com/flavien-perier/dockerfile-dns)
+
 # Dockerfile DNS
 
 Dockerfile for [Bind](https://www.isc.org/bind/) DNS.

@@ -1,16 +1,23 @@
 #!/bin/sh
 
-SERVER_IP=`ping $SERVER_DOMAIN -c 1 | head -n 1 | cut -f 2 -d "(" | cut -f 1 -d ")"`
+FIRST_DOMAIN=`echo $SUB_DOMAINS | cut -f 1 -d " "`
 
-for FILE in /bind/*
+SERVER_IP_INT=`ping $SERVER_DOMAIN -c 1 | head -n 1 | cut -f 2 -d "(" | cut -f 1 -d ")"`
+BASE_PATH_INT=`echo $FIRST_DOMAIN.$BASE_PATH`
+
+DNS_LIST=`echo $SUB_DNS | tr " " ";" | sed '$s/$/;/'`
+
+cat /root/named.conf | \
+    sed s/"@DNS_LIST"/"$DNS_LIST"/ > /etc/bind/named.conf
+
+cat /root/db.local | \
+    sed s/"@SERVER_IP"/"$SERVER_IP_INT"/ | \
+    sed s/"@FIRST_DOMAIN"/"$FIRST_DOMAIN"/ | \
+    sed s/"@BASE_PATH"/"$BASE_PATH_INT"/ > /etc/bind/db.local
+
+for DOMAIN in `echo $SUB_DOMAINS | cut -f 2- -d " "`
 do
-    if [ -f $FILE ]
-    then
-        FILE_NAME=`echo $FILE | cut -f 3 -d "/"`
-        FILE_DEST="/etc/bind/$FILE_NAME"
-
-        cat $FILE | sed s/"@SERVER_IP"/"$SERVER_IP"/ > $FILE_DEST
-    fi
+    echo "$DOMAIN   IN   CNAME   $FIRST_DOMAIN" >> /etc/bind/db.local
 done
 
 named -c /etc/bind/named.conf -g -u named

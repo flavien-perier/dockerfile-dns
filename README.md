@@ -8,15 +8,14 @@ Dockerfile for [Bind](https://www.isc.org/bind/) DNS.
 
 ## Env variables
 
-- SERVER_DOMAIN: In your configuration files the annotation `@SERVER_IP` will be replaced by the IP of the domain specified in this variable.
+- SERVER_DOMAIN: IP or domain to resolve.
+- BASE_PATH: Basic path (example: domain.lan).
+- SUB_DOMAINS: List of sub-domains (for example: www mail cloud).
+- SUB_DNS: List of sub DNS. By default the service uses OpenDNS.
 
 ## Ports
 
 - 53: UDP
-
-## Volumes
-
-- /bind: Bind9 configuration files
 
 ## Docker-compose example
 
@@ -25,8 +24,6 @@ dns:
   image: flavienperier/dns
   container_name: dns
   restart: always
-  volumes:
-    - bindConf:/bind
   ports:
     - 53:53/udp
   environment:

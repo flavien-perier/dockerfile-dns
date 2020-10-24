@@ -1,0 +1,11 @@
+$TTL    604800
+@       IN      SOA     www.local root.local (
+        230520161       ;
+        3600            ;
+        3600            ;
+        3600            ;
+        3600            ;
+);
+
+@       IN      NS      @BASE_PATH.
+@FIRST_DOMAIN     IN      A       @SERVER_IP

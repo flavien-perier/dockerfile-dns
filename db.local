@@ -1,5 +1,5 @@
 $TTL    604800
-@       IN      SOA     www.local root.local (
+@       IN      SOA     @BASE_DOMAIN root.@BASE_PATH (
         230520161       ;
         3600            ;
         3600            ;
@@ -7,5 +7,5 @@ $TTL    604800
         3600            ;
 );
 
-@       IN      NS      @BASE_PATH.
+@       IN      NS      @BASE_DOMAIN.
 @FIRST_DOMAIN     IN      A       @SERVER_IP

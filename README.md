@@ -9,7 +9,7 @@ Dockerfile for [Bind](https://www.isc.org/bind/) DNS.
 ## Env variables
 
 - SERVER_DOMAIN: IP or domain to resolve.
-- BASE_PATH: Basic path (example: domain.lan).
+- BASE_PATH: Base path (example: domain.lan).
 - SUB_DOMAINS: List of sub-domains (for example: www mail cloud).
 - SUB_DNS: List of sub DNS. By default the service uses OpenDNS.
 
@@ -27,5 +27,8 @@ dns:
   ports:
     - 53:53/udp
   environment:
-    SERVER_DOMAIN: www.my-cname.com
+    SERVER_DOMAIN: nginx
+    BASE_PATH: domain.lan
+    SUB_DOMAINS: www mail cloud
+    SUB_DNS: 208.67.222.222 208.67.220.220
 ```

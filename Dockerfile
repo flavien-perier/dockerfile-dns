@@ -1,8 +1,8 @@
 FROM alpine
 
-LABEL maintainer="Flavien PERIER <perier@flavien.io>"
-LABEL version="1.0"
-LABEL description="Bind DNS"
+LABEL maintainer="Flavien PERIER <perier@flavien.io>" \
+      version="2.0.1" \
+      description="Bind DNS"
 
 ENV SERVER_DOMAIN="127.0.0.1"
 ENV BASE_PATH="lan"
